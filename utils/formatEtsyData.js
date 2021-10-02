@@ -2,6 +2,11 @@ const formatEtsyData = (soldOrders, soldOrderItems) => {
   const soldOrdersData = [];
   const soldOrderItemsMap = {};
 
+  const getOrderMonthAndYear = (date) => {
+    const fullDateArray = date.split('/');
+    return fullDateArray[0] + fullDateArray[2];
+  };
+
   // Generate Sold Order Items Map
   for (let item of soldOrderItems) {
     let orderId = item['Order ID'];
@@ -16,6 +21,7 @@ const formatEtsyData = (soldOrders, soldOrderItems) => {
     const orderObj = {};
     orderObj.orderId = order['Order ID'];
     orderObj.saleDate = order['Sale Date'];
+    orderObj.saleMonthAndYear = getOrderMonthAndYear(order['Sale Date']);
     orderObj.soldItems = soldOrderItemsMap[order['Order ID']];
     orderObj.numOfItems = order['Number of Items'];
     orderObj.orderNet = order['Order Net'];

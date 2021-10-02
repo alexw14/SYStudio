@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const orderSchema = new Schema({
   orderId: { type: Number },
   saleDate: { type: String },
+  saleMonthAndYear: {type: String},
   soldItems: { type: Array },
   numOfItems: { type: Number },
   orderNet: { type: Number },
