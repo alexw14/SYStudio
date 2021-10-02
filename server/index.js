@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 require('dotenv').config();
+require('./models/Order');
 
 mongoose.connect(process.env.MONGODB_URI, (err) => {
   if (err) throw err;
