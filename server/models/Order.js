@@ -19,4 +19,4 @@ const orderSchema = new Schema({
   adjustedPaymentProcessFees: { type: Number },
 });
 
-mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Order', orderSchema);

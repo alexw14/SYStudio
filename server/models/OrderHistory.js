@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const orderHistorySchema = new Schema({
   monthAndYear: { type: String },
-  orders: { type: Array }
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 });
 
-mongoose.model('OrderHistory', orderHistorySchema);
+module.exports = mongoose.model('OrderHistory', orderHistorySchema);
