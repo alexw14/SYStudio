@@ -6,13 +6,21 @@ const Order = require('../models/Order');
 router.post('/', async (req, res) => {
   try {
     const newOrder = new Order(req.body);
-    const savedOrder = await newOrder.save();
-    res.status(200).json({
-      success: true,
-      order: savedOrder,
-    });
+    const foundOrder = await Order.findOne({ orderId: newOrder.orderId });
+    if (foundOrder) {
+      return res.json({
+        success: false,
+        message: 'This order already exists in the database',
+      });
+    } else {
+      const savedOrder = await newOrder.save();
+      return res.status(200).json({
+        success: true,
+        order: savedOrder,
+      });
+    }
   } catch (err) {
-    res.json({ success: false, err });
+    return res.json({ success: false, err });
   }
 });
 
