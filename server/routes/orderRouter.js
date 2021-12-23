@@ -14,21 +14,23 @@ router.post('/', async (req, res) => {
 
     if (!foundOrder) {
       const savedOrder = await newOrder.save();
+      let orderHistory = null;
 
       if (foundOrderHistory) {
         foundOrderHistory.orders.push(savedOrder._id);
-        foundOrderHistory = await foundOrderHistory.save();
+        orderHistory = await foundOrderHistory.save();
       } else {
         const newOrderHistory = new OrderHistory({
           monthAndYear: newOrder.saleMonthAndYear,
           orders: [savedOrder._id],
         });
-        const savedOrderHistory = await newOrderHistory.save();
+        orderHistory = await newOrderHistory.save();
       }
 
       return res.status(200).json({
         success: true,
         order: savedOrder,
+        orderHistory: orderHistory
       });
     } else {
       return res.json({
