@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
       return res.status(200).json({
         success: true,
         order: savedOrder,
-        orderHistory: orderHistory
+        orderHistory: orderHistory,
       });
     } else {
       return res.json({
