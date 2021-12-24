@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Tracker extends Component {
+import OrderTrackerDropDown from '../OrderTrackerDropDown/OrderTrackerDropDown';
+
+class OrderTrackerPage extends Component {
   state = {
     monthAndYear: null,
     orders: [],
@@ -21,14 +23,25 @@ class Tracker extends Component {
     }
   };
 
+  handleDropDownSelection = (monthAndYear) => {
+    this.setState({ monthAndYear });
+  };
+
   componentDidMount() {
     this.getOrderHistoryData();
   }
 
   render() {
     const { monthAndYear } = this.state;
-    return <div>{monthAndYear ? monthAndYear : 'Loading...'}</div>;
+    return (
+      <div>
+        <div>{monthAndYear ? monthAndYear : 'Loading...'}</div>
+        <OrderTrackerDropDown
+          handleDropDownSelection={this.handleDropDownSelection}
+        />
+      </div>
+    );
   }
 }
 
-export default Tracker;
+export default OrderTrackerPage;

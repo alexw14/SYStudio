@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import LandingPage from './components/LandingPage/LandingPage';
-import Tracker from './components/Tracker/Tracker';
+import OrderTrackerPage from './components/OrderTrackerPage/OrderTrackerPage';
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/tracker" component={Tracker} />
+        <Route exact path="/ordertracker" component={OrderTrackerPage} />
       </BrowserRouter>
     );
   }
