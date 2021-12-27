@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import OrderTrackerDropDown from '../OrderTrackerDropDown/OrderTrackerDropDown';
+import OrderTrackerTable from '../OrderTrackerTable/OrderTrackerTable';
 
 class OrderTrackerPage extends Component {
   state = {
@@ -32,13 +33,14 @@ class OrderTrackerPage extends Component {
   }
 
   render() {
-    const { monthAndYear } = this.state;
+    const { monthAndYear, orders } = this.state;
     return (
       <div>
         <div>{monthAndYear ? monthAndYear : 'Loading...'}</div>
         <OrderTrackerDropDown
           handleDropDownSelection={this.handleDropDownSelection}
         />
+        <OrderTrackerTable orders={orders} />
       </div>
     );
   }
