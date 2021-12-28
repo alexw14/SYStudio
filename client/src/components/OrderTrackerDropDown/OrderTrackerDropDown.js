@@ -1,11 +1,13 @@
-import React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const OrderTrackerDropDown = (props) => {
+  const [monthAndYear, setMonthAndYear] = React.useState('');
+
   const options = [
     { monthAndYear: '1121', displayMonthAndYear: 'November 2021' },
     { monthAndYear: '1021', displayMonthAndYear: 'October 2021' },
@@ -15,47 +17,34 @@ const OrderTrackerDropDown = (props) => {
     { monthAndYear: '0621', displayMonthAndYear: 'June 2021' },
   ];
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleChange = (event) => {
+    setMonthAndYear(event.target.value);
+    props.handleDropDownSelection(event.target.value);
   };
 
-  const handleMenuItemClick = (event, index, option) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-    props.handleDropDownSelection(option.monthAndYear);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const generateMenuItem = () => {
+    return options.map((option) => {
+      return (
+        <MenuItem key={option.monthAndYear} value={option.monthAndYear}>
+          {option.displayMonthAndYear}
+        </MenuItem>
+      );
+    });
   };
 
   return (
-    <div>
-      <List component="nav">
-        <ListItem button id="dropdown-button" onClick={handleClickListItem}>
-          <ListItemText primary={options[selectedIndex].displayMonthAndYear} />
-        </ListItem>
-      </List>
-      <Menu
-        id="dropdown-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        {options.map((option, index) => (
-          <MenuItem
-            key={option.monthAndYear}
-            selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index, option)}
-          >
-            {option.displayMonthAndYear}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel>Month and Year</InputLabel>
+        <Select
+          value={monthAndYear}
+          label="Month and Year"
+          onChange={handleChange}
+        >
+          {generateMenuItem()}
+        </Select>
+      </FormControl>
+    </Box>
   );
 };
 

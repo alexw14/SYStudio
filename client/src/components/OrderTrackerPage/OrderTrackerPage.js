@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Container from '@mui/material/Container';
 
 import OrderTrackerDropDown from '../OrderTrackerDropDown/OrderTrackerDropDown';
 import OrderTrackerTable from '../OrderTrackerTable/OrderTrackerTable';
@@ -33,14 +34,15 @@ class OrderTrackerPage extends Component {
   }
 
   render() {
-    const { monthAndYear, orders } = this.state;
+    const { orders } = this.state;
     return (
       <div>
-        <div>{monthAndYear ? monthAndYear : 'Loading...'}</div>
-        <OrderTrackerDropDown
-          handleDropDownSelection={this.handleDropDownSelection}
-        />
-        <OrderTrackerTable orders={orders} />
+        <Container maxWidth="xl">
+          <OrderTrackerDropDown
+            handleDropDownSelection={this.handleDropDownSelection}
+          />
+          <OrderTrackerTable orders={orders} />
+        </Container>
       </div>
     );
   }

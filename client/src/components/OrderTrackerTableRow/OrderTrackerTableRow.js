@@ -16,30 +16,32 @@ const OrderTrackerTableRow = (props) => {
   const [open, setOpen] = React.useState(false);
 
   const generateCollapseTableRow = () => {
-    return row.soldItems.map(soldItem => {
+    return row.soldItems.map((soldItem) => {
       return (
-      <TableRow key={soldItem["Listing ID"]}>
-        <TableCell>{soldItem["Item Name"]}</TableCell>
-        <TableCell>{soldItem["Quantity"]}</TableCell>
-        <TableCell>{soldItem["Price"]}</TableCell>
-      </TableRow>
-      )
-    })
-  }
+        <TableRow key={soldItem['Listing ID']}>
+          <TableCell>{soldItem['Item Name']}</TableCell>
+          <TableCell>{soldItem['Quantity']}</TableCell>
+          <TableCell>{soldItem['Price']}</TableCell>
+        </TableRow>
+      );
+    });
+  };
+
+  const convertDateToString = (date) => {
+    const d = new Date(date);
+    return d.toDateString().split(' ').slice(1).join(' ');
+  };
 
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
-          <IconButton
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
+          <IconButton size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.saleDate}
+          {convertDateToString(row.saleDate)}
         </TableCell>
         <TableCell>{row.orderId}</TableCell>
       </TableRow>
@@ -58,9 +60,7 @@ const OrderTrackerTableRow = (props) => {
                     <TableCell>Price</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  {generateCollapseTableRow()}
-                </TableBody>
+                <TableBody>{generateCollapseTableRow()}</TableBody>
               </Table>
             </Box>
           </Collapse>
