@@ -1,9 +1,11 @@
 import React from 'react';
+import Menu from '../Menu/Menu';
+import "./Landing.css"
 
 const LandingPage = () => {
   return (
-    <div>
-        SYS
+    <div className="landing">
+      <Menu />
     </div>
   );
 };

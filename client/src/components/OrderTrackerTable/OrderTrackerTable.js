@@ -26,6 +26,7 @@ const OrderTrackerTable = (props) => {
             <TableCell />
             <TableCell>Sale Date</TableCell>
             <TableCell>Order Id</TableCell>
+            <TableCell>Sales Revenue</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{generateTableRow()}</TableBody>

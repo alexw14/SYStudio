@@ -32,6 +32,18 @@ const OrderTrackerTableRow = (props) => {
     return d.toDateString().split(' ').slice(1).join(' ');
   };
 
+  const calculateEtsyFees = () => {
+    return (
+      row.listingFees +
+      row.paymentProcessFees +
+      row.shippingTransactionFees
+    ).toFixed(2);
+  };
+
+  const calculateSalesRevenue = () => {
+    return (row.orderValue + row.shippingCharged - calculateEtsyFees()).toFixed(2);
+  };
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -44,6 +56,7 @@ const OrderTrackerTableRow = (props) => {
           {convertDateToString(row.saleDate)}
         </TableCell>
         <TableCell>{row.orderId}</TableCell>
+        <TableCell>${calculateSalesRevenue()}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -52,7 +65,7 @@ const OrderTrackerTableRow = (props) => {
               <Typography variant="h6" gutterBottom component="div">
                 Sold Items
               </Typography>
-              <Table size="small">
+              <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Item Name</TableCell>

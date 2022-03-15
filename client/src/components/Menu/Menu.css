@@ -1,0 +1,8 @@
+.top-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-menu a {
+  margin: 20px 10px;
+}
