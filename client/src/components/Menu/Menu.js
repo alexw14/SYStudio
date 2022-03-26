@@ -5,9 +5,10 @@ import './Menu.css';
 const Menu = () => {
   return (
     <div className="top-menu">
-      <Link to="/shipping">Shipping</Link>
-      <Link to="/inventory">Inventory</Link>
+      <Link to="/">Home</Link>
       <Link to="/ordertracker">Tracker</Link>
+      <Link to="/inventory">Inventory</Link>
+      <Link to="/shipping">Shipping</Link>
     </div>
   );
 };

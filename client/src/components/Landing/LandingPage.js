@@ -5,7 +5,6 @@ import "./Landing.css"
 const LandingPage = () => {
   return (
     <div className="landing">
-      <Menu />
     </div>
   );
 };

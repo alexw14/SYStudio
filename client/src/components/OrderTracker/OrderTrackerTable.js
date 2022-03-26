@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import OrderTrackerTableRow from '../OrderTrackerTableRow/OrderTrackerTableRow';
+import OrderTrackerTableRow from './OrderTrackerTableRow';
 
 const OrderTrackerTable = (props) => {
   const { orders } = props;

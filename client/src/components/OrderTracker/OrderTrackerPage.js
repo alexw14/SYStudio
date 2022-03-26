@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Container from '@mui/material/Container';
 
-import OrderTrackerDropDown from '../OrderTrackerDropDown/OrderTrackerDropDown';
-import OrderTrackerTable from '../OrderTrackerTable/OrderTrackerTable';
+import OrderTrackerDropDown from './OrderTrackerDropDown';
+import OrderTrackerTable from './OrderTrackerTable';
 
 class OrderTrackerPage extends Component {
   state = {
