@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+
+import './NewInventoryPage.css';
 
 class NewInventoryPage extends Component {
   state = {
     name: '',
     sku: '',
-    costOfGoods: 0,
+    costOfGoods: '',
   };
 
-  handleChange = (event) => {
-    const value = event.target.value;
+  handleChange = (e) => {
+    const { value, name } = e.target;
     this.setState({
-      [event.target.name]: value,
+      [name]: value,
     });
   };
 
@@ -28,30 +31,33 @@ class NewInventoryPage extends Component {
     } catch (err) {
       console.log(err);
     }
-    
-  }
+  };
 
   render() {
     return (
-      <div>
+      <div className="add-inventory-wrapper">
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <label>Name:</label>
-          <input
-            type="text"
+          <TextField
+            label="Name"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             name="name"
             value={this.state.name}
-            onChange={(e) => this.handleChange(e)}
+            onChange={this.handleChange}
           />
-          <label>Sku:</label>
-          <input
-            type="text"
+          <TextField
+            label="Sku"
+            variant="outlined"
+            margin="normal"
             name="sku"
             value={this.state.sku}
             onChange={this.handleChange}
           />
-          <label>Cost of Goods:</label>
-          <input
-            type="number"
+          <TextField
+            label="Cost of Goods"
+            variant="outlined"
+            margin="normal"
             name="costOfGoods"
             value={this.state.costOfGoods}
             onChange={this.handleChange}

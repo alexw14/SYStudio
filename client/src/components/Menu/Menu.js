@@ -6,7 +6,7 @@ const Menu = () => {
   return (
     <div className="top-menu">
       <Link to="/">Home</Link>
-      <Link to="/ordertracker">Tracker</Link>
+      <Link to="/ordertracker">Order Tracker</Link>
       <Link to="/inventory">Inventory</Link>
       <Link to="/shipping">Shipping</Link>
     </div>

@@ -1,6 +1,6 @@
 .landing {
-  background-image: url("../../assets/images/landing.jpg");
+  background-color: gold;
   background-size: cover;
-  height: 100vh;
+  height: 500px;
   width: 100vw;
 }
