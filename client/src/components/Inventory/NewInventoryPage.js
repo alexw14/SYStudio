@@ -18,10 +18,18 @@ class NewInventoryPage extends Component {
     });
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
     const dataToSubmit = this.state;
     this.postNewInventoryData(dataToSubmit);
+  };
+
+  handleResetState = () => {
+    this.setState({
+      name: '',
+      sku: '',
+      costOfGoods: '',
+    });
   };
 
   postNewInventoryData = async (data) => {
@@ -62,7 +70,10 @@ class NewInventoryPage extends Component {
             value={this.state.costOfGoods}
             onChange={this.handleChange}
           />
-          <button>Submit</button>
+          <button type="submit">Add</button>
+          <button type="button" onClick={this.handleResetState}>
+            Clear
+          </button>
         </form>
       </div>
     );
