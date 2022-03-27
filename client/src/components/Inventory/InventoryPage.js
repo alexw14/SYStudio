@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+import "./InventoryPage.css";
+
 class InventoryPage extends Component {
   state = {
     inventories: [],
@@ -36,7 +38,7 @@ class InventoryPage extends Component {
                 <TableRow key={row.sku}>
                   <TableCell>{row.sku}</TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.costOfGoods}</TableCell>
+                  <TableCell>${row.costOfGoods}</TableCell>
                 </TableRow>
               );
             })}

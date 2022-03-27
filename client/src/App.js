@@ -6,6 +6,7 @@ import Menu from './components/Menu/Menu';
 import OrderTrackerPage from './components/OrderTracker/OrderTrackerPage';
 import InventoryPage from './components/Inventory/InventoryPage';
 import NewInventoryPage from './components/Inventory/NewInventoryPage';
+import ShippingPage from './components/Shipping/ShippingPage';
 import './App.css';
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/ordertracker" component={OrderTrackerPage} />
           <Route exact path="/inventory" component={InventoryPage} />
-          <Route exact path="/add-inventory" component={NewInventoryPage} />
+          <Route exact path="/inventory/add" component={NewInventoryPage} />
+          <Route exact path="/shipping" component={ShippingPage} />
         </React.Fragment>
       </BrowserRouter>
     );
