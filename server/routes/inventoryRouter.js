@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     } else {
       return res.json({
         success: false,
-        message: 'This inventory already exists in the database',
+        message: 'This inventory already exists in the database.',
       });
     }
   } catch (err) {

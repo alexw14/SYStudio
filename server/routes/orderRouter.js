@@ -4,6 +4,8 @@ const router = express.Router();
 const Order = require('../models/Order');
 const OrderHistory = require('../models/OrderHistory');
 
+// ToDo: increase number sold in inventory
+
 router.post('/', async (req, res) => {
   try {
     const newOrder = new Order(req.body);
