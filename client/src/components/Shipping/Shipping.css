@@ -1,0 +1,13 @@
+.shipping-page-wrapper {
+  width: 90%;
+  margin: 24px auto;
+}
+
+.shipping-inputs-form {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.shipping-inputs-form label {
+  margin-right: 8px;
+}
