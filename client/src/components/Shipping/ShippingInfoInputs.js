@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import './Shipping.css';
 
@@ -24,9 +25,16 @@ class ShippingInfoInputs extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submit');
+    const dataToSubmit = { ...this.state };
+    dataToSubmit.cost = parseFloat(dataToSubmit.cost);
+    try {
+      let response = await axios.post('/api/shipping', dataToSubmit);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   generateShippingInputs = () => {
@@ -36,7 +44,7 @@ class ShippingInfoInputs extends Component {
         onSubmit={(e) => this.handleSubmit(e)}
       >
         <div>
-          <label>Date</label>
+          <label>Shipping Date</label>
           <input
             type="date"
             name="date"
