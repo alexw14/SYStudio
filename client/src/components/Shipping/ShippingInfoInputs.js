@@ -1,55 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-import './Shipping.css';
+const ShippingInfoInputs = (props) => {
+  const {
+    date,
+    trackingNumber,
+    cost,
+    handleChange,
+    handleSubmit,
+    resetShippingInfoInputs,
+  } = props;
 
-class ShippingInfoInputs extends Component {
-  state = {
-    date: new Date().toISOString().split('T')[0],
-    trackingNumber: '',
-    cost: '',
-  };
-
-  handleChange = (e) => {
-    const { value, name } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleResetState = () => {
-    this.setState({
-      date: '',
-      trackingNumber: '',
-      cost: '',
-    });
-  };
-
-  handleSubmit = async (e) => {
-    e.preventDefault();
-    const dataToSubmit = { ...this.state };
-    dataToSubmit.cost = parseFloat(dataToSubmit.cost);
-    try {
-      let response = await axios.post('/api/shipping', dataToSubmit);
-      return response;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  generateShippingInputs = () => {
+  const generateShippingInputs = () => {
     return (
-      <form
-        className="shipping-inputs-form"
-        onSubmit={(e) => this.handleSubmit(e)}
-      >
+      <form className="shipping-inputs-form" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>Shipping Date</label>
           <input
             type="date"
             name="date"
-            value={this.state.date}
-            onChange={this.handleChange}
+            value={date}
+            onChange={(e) => handleChange(e)}
           ></input>
         </div>
         <div>
@@ -57,8 +27,8 @@ class ShippingInfoInputs extends Component {
           <input
             type="text"
             name="trackingNumber"
-            value={this.state.trackingNumber}
-            onChange={this.handleChange}
+            value={trackingNumber}
+            onChange={(e) => handleChange(e)}
           ></input>
         </div>
         <div>
@@ -66,21 +36,21 @@ class ShippingInfoInputs extends Component {
           <input
             type="text"
             name="cost"
-            value={this.state.cost}
-            onChange={this.handleChange}
+            value={cost}
+            onChange={(e) => handleChange(e)}
           ></input>
         </div>
-        <button type="submit">Add</button>
-        <button type="button" onClick={this.handleResetState}>
-          Clear
-        </button>
+        <div className="buttons-container">
+          <button type="submit">Add</button>
+          <button type="button" onClick={() => resetShippingInfoInputs()}>
+            Clear
+          </button>
+        </div>
       </form>
     );
   };
 
-  render() {
-    return <div>{this.generateShippingInputs()}</div>;
-  }
-}
+  return <React.Fragment>{generateShippingInputs()}</React.Fragment>;
+};
 
 export default ShippingInfoInputs;

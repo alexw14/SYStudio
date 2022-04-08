@@ -1,13 +1,58 @@
 .shipping-page-wrapper {
   width: 90%;
   margin: 24px auto;
+  display: flex;
+}
+
+.shipping-page-wrapper table {
+  width: 70%;
+  border-spacing: 0px;
+  padding: 8px;
 }
 
 .shipping-inputs-form {
+  width: 30%;
+  margin: 8px;
+  padding: 8px;
+  background-color: gold;
+  height: 150px;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shipping-inputs-form div {
+  padding: 8px;
+  display: flex;
+  justify-content: center;
 }
 
 .shipping-inputs-form label {
   margin-right: 8px;
+  width: 140px;
+  display: inline-block;
+}
+
+.shipping-inputs-form input {
+  width: 200px;
+  box-sizing: border-box;
+}
+
+.shipping-info-table thead {
+  background-color: gold;
+  height: 48px;
+}
+
+.shipping-info-table th {
+  padding: 8px;
+  border: none;
+  text-align: left;
+}
+
+.shipping-info-table td {
+  padding: 8px;
+}
+
+.buttons-container button {
+  margin: 0px 24px;
 }
