@@ -1,14 +1,12 @@
+/* Page */
+
 .shipping-page-wrapper {
   width: 90%;
   margin: 24px auto;
   display: flex;
 }
 
-.shipping-page-wrapper table {
-  width: 70%;
-  border-spacing: 0px;
-  padding: 8px;
-}
+/* Shipping Info Inputs */
 
 .shipping-info-inputs {
   width: 30%;
@@ -22,13 +20,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 8px;
 }
 
 .shipping-inputs-form div {
   padding: 8px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .shipping-inputs-form label {
@@ -39,26 +37,7 @@
 
 .shipping-inputs-form input {
   width: 200px;
-  box-sizing: border-box;
-}
-
-.shipping-info-table thead {
-  background-color: gold;
-  height: 48px;
-}
-
-.shipping-info-table th {
-  padding: 8px;
-  border: none;
-  text-align: left;
-}
-
-.shipping-info-table .tracking-number {
-  cursor: pointer;
-}
-
-.shipping-info-table td {
-  padding: 8px;
+  background-color: white;
 }
 
 .buttons-container button {
@@ -70,4 +49,19 @@
   font-weight: bold;
   text-align: center;
   margin-top: 8px;
+}
+
+/* Shipping Info Table */
+
+.shipping-info-table-container {
+  width: 70%;
+  margin: 8px;
+}
+
+.shipping-info-table thead {
+  background-color: gold;
+}
+
+.shipping-info-table .tracking-number {
+  cursor: pointer;
 }

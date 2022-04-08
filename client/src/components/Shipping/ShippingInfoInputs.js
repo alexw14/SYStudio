@@ -1,4 +1,7 @@
 import React from 'react';
+import { Input } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
+import { MdSave, MdClear } from 'react-icons/md';
 
 const ShippingInfoInputs = (props) => {
   const {
@@ -16,36 +19,42 @@ const ShippingInfoInputs = (props) => {
       <form className="shipping-inputs-form" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>Shipping Date</label>
-          <input
+          <Input
             type="date"
             name="date"
             value={date}
             onChange={(e) => handleChange(e)}
-          ></input>
+          />
         </div>
         <div>
           <label>Tracking Number</label>
-          <input
-            type="text"
+          <Input
             name="trackingNumber"
             value={trackingNumber}
             onChange={(e) => handleChange(e)}
-          ></input>
+          />
         </div>
         <div>
           <label>Cost</label>
-          <input
-            type="text"
-            name="cost"
-            value={cost}
-            onChange={(e) => handleChange(e)}
-          ></input>
+          <Input name="cost" value={cost} onChange={(e) => handleChange(e)} />
         </div>
         <div className="buttons-container">
-          <button type="submit">Add</button>
-          <button type="button" onClick={() => resetShippingInfoInputs()}>
+          <Button
+            type="submit"
+            size="sm"
+            colorScheme="blue"
+            leftIcon={<MdSave />}
+          >
+            Save
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            leftIcon={<MdClear />}
+            onClick={() => resetShippingInfoInputs()}
+          >
             Clear
-          </button>
+          </Button>
         </div>
       </form>
     );
