@@ -5,6 +5,7 @@ const ShippingInfoInputs = (props) => {
     date,
     trackingNumber,
     cost,
+    errorMessage,
     handleChange,
     handleSubmit,
     resetShippingInfoInputs,
@@ -50,7 +51,12 @@ const ShippingInfoInputs = (props) => {
     );
   };
 
-  return <React.Fragment>{generateShippingInputs()}</React.Fragment>;
+  return (
+    <div className="shipping-info-inputs">
+      {generateShippingInputs()}
+      <div className="error-text">{errorMessage}</div>
+    </div>
+  );
 };
 
 export default ShippingInfoInputs;

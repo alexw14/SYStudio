@@ -1,6 +1,6 @@
 import React from 'react';
 
-const generateTable = (data) => {
+const generateTable = (data, handleClick) => {
   return (
     <table className="shipping-info-table">
       <thead>
@@ -15,7 +15,14 @@ const generateTable = (data) => {
           return (
             <tr key={d.trackingNumber}>
               <td>{d.date ? d.date.split('T')[0] : 'N/A'}</td>
-              <td>{d.trackingNumber}</td>
+              <td>
+                <span
+                  className="tracking-number"
+                  onClick={() => handleClick(d)}
+                >
+                  {d.trackingNumber}
+                </span>
+              </td>
               <td>${d.cost ? d.cost : 0}</td>
             </tr>
           );
@@ -26,8 +33,12 @@ const generateTable = (data) => {
 };
 
 const ShippingInfoTable = (props) => {
-  const { shippingData } = props;
-  return <React.Fragment>{generateTable(shippingData)}</React.Fragment>;
+  const { shippingData, handleClick } = props;
+  return (
+    <React.Fragment>
+      {generateTable(shippingData, handleClick)}
+    </React.Fragment>
+  );
 };
 
 export default ShippingInfoTable;

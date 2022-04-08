@@ -10,15 +10,19 @@
   padding: 8px;
 }
 
-.shipping-inputs-form {
+.shipping-info-inputs {
   width: 30%;
+  height: 200px;
   margin: 8px;
+}
+
+.shipping-inputs-form {
   padding: 8px;
   background-color: gold;
-  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 8px;
 }
 
 .shipping-inputs-form div {
@@ -49,10 +53,21 @@
   text-align: left;
 }
 
+.shipping-info-table .tracking-number {
+  cursor: pointer;
+}
+
 .shipping-info-table td {
   padding: 8px;
 }
 
 .buttons-container button {
   margin: 0px 24px;
+}
+
+.shipping-info-inputs .error-text {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
 }

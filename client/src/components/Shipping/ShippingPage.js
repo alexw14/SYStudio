@@ -10,6 +10,7 @@ class ShippingPage extends Component {
     date: new Date().toISOString().split('T')[0],
     trackingNumber: '',
     cost: '',
+    errorMessage: '',
   };
 
   handleChange = (e) => {
@@ -24,6 +25,19 @@ class ShippingPage extends Component {
       date: '',
       trackingNumber: '',
       cost: '',
+      errorMessage: '',
+    });
+  };
+
+  handleClickTrackingNumber = (rowData) => {
+    const date = rowData.date ? rowData.date.split('T')[0] : '';
+    const trackingNumber = rowData.trackingNumber;
+    const cost = rowData.cost ? rowData.cost : 0;
+    this.setState({
+      date,
+      trackingNumber,
+      cost,
+      errorMessage: '',
     });
   };
 
@@ -35,23 +49,33 @@ class ShippingPage extends Component {
       trackingNumber,
       cost: parseFloat(cost),
     };
+    const response = await this.postShippingData(dataToSubmit);
+    if (response.data.success) {
+      this.getShippingData();
+      this.resetShippingInfoInputs();
+      this.setState({ errorMessage: '' });
+    } else {
+      this.setState({ errorMessage: response.data.message });
+    }
+  };
+
+  postShippingData = async (dataToSubmit) => {
     try {
       let response = await axios.post('/api/shipping', dataToSubmit);
-      if (response.data.success) {
-        this.getShippingData();
-        this.resetShippingInfoInputs();
-      } else {
-        // Display warning to user
-      }
+      return response;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   getShippingData = async () => {
-    const response = await axios.get('/api/shipping');
-    const { shippingData } = response.data;
-    this.setState({ shippingData });
+    try {
+      const response = await axios.get('/api/shipping');
+      const { shippingData } = response.data;
+      this.setState({ shippingData });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   componentDidMount() {
@@ -65,11 +89,15 @@ class ShippingPage extends Component {
           date={this.state.date}
           trackingNumber={this.state.trackingNumber}
           cost={this.state.cost}
+          errorMessage={this.state.errorMessage}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetShippingInfoInputs={this.resetShippingInfoInputs}
         />
-        <ShippingInfoTable shippingData={this.state.shippingData} />
+        <ShippingInfoTable
+          shippingData={this.state.shippingData}
+          handleClick={this.handleClickTrackingNumber}
+        />
       </div>
     );
   }
