@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.shipping-inputs-form div {
+.shipping-inputs-form > div {
   padding: 8px;
   display: flex;
   justify-content: center;
@@ -40,8 +40,20 @@
   background-color: white;
 }
 
-.buttons-container button {
-  margin: 0px 24px;
+.add-edit-btn-container {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: gold;
+  padding: 16px 8px 8px 8px;
+}
+
+.add-edit-btn-container button {
+  width: 50%;
+  margin: 0px 8px;
+}
+
+.save-btn-container button {
+  margin: 0px 8px;
 }
 
 .shipping-info-inputs .error-text {

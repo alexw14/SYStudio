@@ -11,6 +11,7 @@ class ShippingPage extends Component {
     trackingNumber: '',
     cost: '',
     errorMessage: '',
+    isAddOrEdit: 'add',
   };
 
   handleChange = (e) => {
@@ -26,7 +27,13 @@ class ShippingPage extends Component {
       trackingNumber: '',
       cost: '',
       errorMessage: '',
+      isAddOrEdit: 'add',
     });
+  };
+
+  handleClickAddEditBtn = (condition) => {
+    const isAddOrEdit = condition === 'add' ? 'add' : 'edit';
+    this.setState({ isAddOrEdit });
   };
 
   handleClickTrackingNumber = (rowData) => {
@@ -38,6 +45,7 @@ class ShippingPage extends Component {
       trackingNumber,
       cost,
       errorMessage: '',
+      isAddOrEdit: 'edit',
     });
   };
 
@@ -58,6 +66,8 @@ class ShippingPage extends Component {
       this.setState({ errorMessage: response.data.message });
     }
   };
+
+  updateShippingData = async (dataToSubmit) => {};
 
   postShippingData = async (dataToSubmit) => {
     try {
@@ -90,9 +100,11 @@ class ShippingPage extends Component {
           trackingNumber={this.state.trackingNumber}
           cost={this.state.cost}
           errorMessage={this.state.errorMessage}
+          isAddOrEdit={this.state.isAddOrEdit}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetShippingInfoInputs={this.resetShippingInfoInputs}
+          handleClickAddEditBtn={this.handleClickAddEditBtn}
         />
         <ShippingInfoTable
           shippingData={this.state.shippingData}
