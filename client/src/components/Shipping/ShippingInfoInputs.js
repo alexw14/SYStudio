@@ -5,6 +5,7 @@ import { MdSave, MdClear } from 'react-icons/md';
 const ShippingInfoInputs = (props) => {
   const {
     date,
+    orderId,
     trackingNumber,
     cost,
     errorMessage,
@@ -42,12 +43,12 @@ const ShippingInfoInputs = (props) => {
     return (
       <form className="shipping-inputs-form" onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label>Shipping Date</label>
+          <label>Order ID</label>
           <Input
-            type="date"
-            name="date"
-            value={date}
+            name="orderId"
+            value={orderId}
             onChange={(e) => handleChange(e)}
+            isReadOnly={isAddOrEdit === 'edit'}
           />
         </div>
         <div>
@@ -57,6 +58,15 @@ const ShippingInfoInputs = (props) => {
             value={trackingNumber}
             onChange={(e) => handleChange(e)}
             isReadOnly={isAddOrEdit === 'edit'}
+          />
+        </div>
+        <div>
+          <label>Shipping Date</label>
+          <Input
+            type="date"
+            name="date"
+            value={date}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>

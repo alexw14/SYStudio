@@ -16,6 +16,7 @@ const generateTable = (data, handleClick) => {
         <Thead>
           <Tr>
             <Th>Shipping Date</Th>
+            <Th>Order ID</Th>
             <Th>Tracking Number</Th>
             <Th>Cost</Th>
           </Tr>
@@ -25,6 +26,7 @@ const generateTable = (data, handleClick) => {
             return (
               <Tr key={d.trackingNumber}>
                 <Td>{d.date ? d.date.split('T')[0] : 'N/A'}</Td>
+                <Td>{d.orderId ? d.orderId : ''}</Td>
                 <Td>
                   <span
                     className="tracking-number"

@@ -8,6 +8,7 @@ class ShippingPage extends Component {
   state = {
     shippingData: [],
     date: new Date().toISOString().split('T')[0],
+    orderId: '',
     trackingNumber: '',
     cost: '',
     errorMessage: '',
@@ -24,6 +25,7 @@ class ShippingPage extends Component {
   resetShippingInfoInputs = () => {
     this.setState({
       date: '',
+      orderId: '',
       trackingNumber: '',
       cost: '',
       errorMessage: '',
@@ -38,10 +40,12 @@ class ShippingPage extends Component {
 
   handleClickTrackingNumber = (rowData) => {
     const date = rowData.date ? rowData.date.split('T')[0] : '';
+    const orderId = rowData.orderId;
     const trackingNumber = rowData.trackingNumber;
     const cost = rowData.cost ? rowData.cost : 0;
     this.setState({
       date,
+      orderId,
       trackingNumber,
       cost,
       errorMessage: '',
@@ -50,10 +54,11 @@ class ShippingPage extends Component {
   };
 
   handleSubmit = async (e) => {
-    const { date, trackingNumber, cost, isAddOrEdit } = this.state;
+    const { date, orderId, trackingNumber, cost, isAddOrEdit } = this.state;
     e.preventDefault();
     const dataToSubmit = {
       date,
+      orderId,
       trackingNumber,
       cost: parseFloat(cost),
     };
@@ -116,6 +121,7 @@ class ShippingPage extends Component {
       <div className="shipping-page-wrapper">
         <ShippingInfoInputs
           date={this.state.date}
+          orderId={this.state.orderId}
           trackingNumber={this.state.trackingNumber}
           cost={this.state.cost}
           errorMessage={this.state.errorMessage}
