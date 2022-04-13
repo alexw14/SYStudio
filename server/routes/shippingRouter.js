@@ -26,6 +26,31 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/edit/:trackingNumber', async (req, res) => {
+  try {
+    const { date, cost } = req.body;
+    const foundShippingData = await Shipping.findOne({
+      trackingNumber: req.params.trackingNumber,
+    });
+    if (foundShippingData) {
+      foundShippingData.date = date;
+      foundShippingData.cost = cost;
+      const savedShippingData = await foundShippingData.save();
+      return res.status(200).json({
+        success: true,
+        shippingData: savedShippingData,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'This shipping info cannot be found in the database.',
+      });
+    }
+  } catch (err) {
+    return res.json({ success: false, error: err });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     const foundShippingData = await Shipping.find({});

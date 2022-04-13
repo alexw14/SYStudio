@@ -50,24 +50,43 @@ class ShippingPage extends Component {
   };
 
   handleSubmit = async (e) => {
-    const { date, trackingNumber, cost } = this.state;
+    const { date, trackingNumber, cost, isAddOrEdit } = this.state;
     e.preventDefault();
     const dataToSubmit = {
       date,
       trackingNumber,
       cost: parseFloat(cost),
     };
-    const response = await this.postShippingData(dataToSubmit);
-    if (response.data.success) {
-      this.getShippingData();
-      this.resetShippingInfoInputs();
-      this.setState({ errorMessage: '' });
-    } else {
-      this.setState({ errorMessage: response.data.message });
+    if (isAddOrEdit === 'add') {
+      const response = await this.postShippingData(dataToSubmit);
+      if (response.data.success) {
+        this.getShippingData();
+        this.resetShippingInfoInputs();
+        this.setState({ errorMessage: '' });
+      } else {
+        this.setState({ errorMessage: response.data.message });
+      }
+    } else if (isAddOrEdit === 'edit') {
+      const response = await this.updateShippingData(dataToSubmit);
+      if (response.data.success) {
+        this.getShippingData();
+        this.resetShippingInfoInputs();
+        this.setState({ errorMessage: '' });
+      } else {
+        this.setState({ errorMessage: response.data.message });
+      }
     }
   };
 
-  updateShippingData = async (dataToSubmit) => {};
+  updateShippingData = async (dataToSubmit) => {
+    try {
+      const url = `/api/shipping/edit/${dataToSubmit.trackingNumber}`;
+      let response = await axios.post(url, dataToSubmit);
+      return response;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   postShippingData = async (dataToSubmit) => {
     try {
