@@ -24,6 +24,33 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/edit/:sku', async (req, res) => {
+  try {
+    const { name, sku, costOfGoods, category } = req.body;
+    const foundInventory = await Inventory.findOne({
+      sku: req.params.sku,
+    });
+    if (foundInventory) {
+      foundInventory.name = name;
+      foundInventory.sku = sku;
+      foundInventory.costOfGoods = costOfGoods;
+      foundInventory.category = category;
+      const savedInventory = await foundInventory.save();
+      return res.status(200).json({
+        success: true,
+        inventory: savedInventory,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'This inventory cannot be found in the database.',
+      });
+    }
+  } catch (err) {
+    return res.json({ success: false, error: err });
+  }
+});
+
 router.get('/', async (req, res) => {
   try {
     const foundInventories = await Inventory.find({});

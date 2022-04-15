@@ -17,6 +17,8 @@ const InventoryInputs = (props) => {
     handleChange,
     handleSubmit,
     resetInventoryInputs,
+    handleClickAddEditBtn,
+    isAddOrEdit,
   } = props;
 
   const categoryDropDownSelections = [
@@ -35,6 +37,29 @@ const InventoryInputs = (props) => {
     'Tracing Tape Sample',
   ];
 
+  const generateAddEditButtons = () => {
+    return (
+      <div className="add-edit-btn-container">
+        <Button
+          type="button"
+          size="md"
+          colorScheme={isAddOrEdit === 'add' ? 'teal' : 'gray'}
+          onClick={() => handleClickAddEditBtn('add')}
+        >
+          Add
+        </Button>
+        <Button
+          type="button"
+          size="md"
+          onClick={() => handleClickAddEditBtn('edit')}
+          colorScheme={isAddOrEdit === 'edit' ? 'teal' : 'gray'}
+        >
+          Edit
+        </Button>
+      </div>
+    );
+  };
+
   const generateInventoryInputs = () => {
     return (
       <form className="inventory-inputs-form" onSubmit={(e) => handleSubmit(e)}>
@@ -47,7 +72,12 @@ const InventoryInputs = (props) => {
         <div className="input-wrapper input-row-2">
           <div className="input-container sku">
             <label>SKU</label>
-            <Input name="sku" value={sku} onChange={(e) => handleChange(e)} />
+            <Input
+              name="sku"
+              value={sku}
+              onChange={(e) => handleChange(e)}
+              isReadOnly={isAddOrEdit === 'edit'}
+            />
           </div>
           <div className="input-container cost">
             <label>Cost of Goods</label>
@@ -87,6 +117,7 @@ const InventoryInputs = (props) => {
               size="md"
               colorScheme="teal"
               leftIcon={<MdSave />}
+              isDisabled={sku === ''}
             >
               Save
             </Button>
@@ -104,7 +135,12 @@ const InventoryInputs = (props) => {
     );
   };
 
-  return <div className="inventory-inputs">{generateInventoryInputs()}</div>;
+  return (
+    <div className="inventory-inputs">
+      {generateAddEditButtons()}
+      {generateInventoryInputs()}
+    </div>
+  );
 };
 
 export default InventoryInputs;

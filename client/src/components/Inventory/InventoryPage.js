@@ -13,6 +13,7 @@ class InventoryPage extends Component {
     category: '',
     costOfGoods: '',
     errorMessage: '',
+    isAddOrEdit: 'add',
   };
 
   handleChange = (e) => {
@@ -22,31 +23,72 @@ class InventoryPage extends Component {
     });
   };
 
+  handleClickAddEditBtn = (condition) => {
+    const isAddOrEdit = condition === 'add' ? 'add' : 'edit';
+    this.setState({ isAddOrEdit });
+  };
+
+  handleTableRowClick = (rowData) => {
+    const { name, sku, category, costOfGoods } = rowData;
+    this.setState({
+      name,
+      sku,
+      category,
+      costOfGoods,
+      isAddOrEdit: 'edit',
+    });
+  };
+
   resetInventoryInputs = () => {
     this.setState({
       name: '',
       sku: '',
       category: '',
       costOfGoods: '',
+      errorMessage: '',
+      isAddOrEdit: 'add',
     });
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, sku, category, costOfGoods } = this.state;
+    const { name, sku, category, costOfGoods, isAddOrEdit } = this.state;
     const dataToSubmit = {
       name,
       sku,
       category,
       costOfGoods: parseFloat(costOfGoods),
     };
-    const response = await this.postInventoryData(dataToSubmit);
-    if (response.data.success) {
-      this.getInventoryData();
-      this.resetInventoryInputs();
-      this.setState({ errorMessage: '' });
-    } else {
-      this.setState({ errorMessage: response.data.message });
+    if (isAddOrEdit === 'add') {
+      const response = await this.postInventoryData(dataToSubmit);
+      if (response.data.success) {
+        this.successPostRequest();
+      } else {
+        this.setState({ errorMessage: response.data.message });
+      }
+    } else if (isAddOrEdit === 'edit') {
+      const response = await this.updateInventoryData(dataToSubmit);
+      if (response.data.success) {
+        this.successPostRequest();
+      } else {
+        this.setState({ errorMessage: response.data.message });
+      }
+    }
+  };
+
+  successPostRequest = () => {
+    this.getInventoryData();
+    this.resetInventoryInputs();
+    this.setState({ errorMessage: '' });
+  };
+
+  updateInventoryData = async (dataToSubmit) => {
+    try {
+      const url = `/api/inventory/edit/${dataToSubmit.sku}`;
+      let response = await axios.post(url, dataToSubmit);
+      return response;
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -81,11 +123,16 @@ class InventoryPage extends Component {
           sku={this.state.sku}
           category={this.state.category}
           costOfGoods={this.state.costOfGoods}
+          isAddOrEdit={this.state.isAddOrEdit}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetInventoryInputs={this.resetInventoryInputs}
+          handleClickAddEditBtn={this.handleClickAddEditBtn}
         />
-        <InventoryTable inventories={this.state.inventories} />
+        <InventoryTable
+          inventories={this.state.inventories}
+          handleTableRowClick={this.handleTableRowClick}
+        />
       </div>
     );
   }

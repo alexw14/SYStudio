@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 const InventoryTable = (props) => {
-  const { inventories } = props;
+  const { inventories, handleTableRowClick } = props;
 
   const generateTable = (data) => {
     return (
@@ -27,7 +27,7 @@ const InventoryTable = (props) => {
           <Tbody>
             {data.map((d) => {
               return (
-                <Tr key={d.sku}>
+                <Tr key={d.sku} onClick={() => handleTableRowClick(d)}>
                   <Td>{d.name}</Td>
                   <Td>{d.sku}</Td>
                   <Td>${d.costOfGoods}</Td>
