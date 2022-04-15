@@ -38,7 +38,7 @@ class ShippingPage extends Component {
     this.setState({ isAddOrEdit });
   };
 
-  handleClickTrackingNumber = (rowData) => {
+  handleTableRowClick = (rowData) => {
     const date = rowData.date ? rowData.date.split('T')[0] : '';
     const orderId = rowData.orderId;
     const trackingNumber = rowData.trackingNumber;
@@ -85,7 +85,7 @@ class ShippingPage extends Component {
 
   updateShippingData = async (dataToSubmit) => {
     try {
-      const url = `/api/shipping/edit/${dataToSubmit.trackingNumber}`;
+      const url = `/api/shipping/edit/${dataToSubmit.orderId}`;
       let response = await axios.post(url, dataToSubmit);
       return response;
     } catch (err) {
@@ -133,7 +133,7 @@ class ShippingPage extends Component {
         />
         <ShippingInfoTable
           shippingData={this.state.shippingData}
-          handleClick={this.handleClickTrackingNumber}
+          handleClick={this.handleTableRowClick}
         />
       </div>
     );

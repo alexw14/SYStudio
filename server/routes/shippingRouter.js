@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
   try {
     const newShippingData = new Shipping(req.body);
     const foundShippingData = await Shipping.findOne({
-      trackingNumber: newShippingData.trackingNumber,
+      orderId: newShippingData.orderId,
     });
     if (!foundShippingData) {
       const savedShippingData = await newShippingData.save();
@@ -26,11 +26,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post('/edit/:trackingNumber', async (req, res) => {
+router.post('/edit/:orderId', async (req, res) => {
   try {
     const { date, cost } = req.body;
     const foundShippingData = await Shipping.findOne({
-      trackingNumber: req.params.trackingNumber,
+      orderId: req.params.orderId,
     });
     if (foundShippingData) {
       foundShippingData.date = date;
@@ -53,7 +53,7 @@ router.post('/edit/:trackingNumber', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const foundShippingData = await Shipping.find({});
+    const foundShippingData = await Shipping.find({}).sort({ date: 'desc' });
     if (foundShippingData) {
       return res.status(200).json({
         success: true,

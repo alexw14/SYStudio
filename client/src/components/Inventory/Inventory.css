@@ -1,0 +1,77 @@
+/* Page */
+
+.inventory-page-wrapper {
+  width: 90%;
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Shipping Info Inputs */
+
+.inventory-inputs {
+  margin: 8px;
+}
+
+.inventory-inputs-form {
+  padding: 8px;
+  background-color: gold;
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-inputs-form .input-wrapper {
+  display: flex;
+  padding: 8px;
+}
+
+.inventory-inputs-form .input-wrapper.input-row-2 {
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.inventory-inputs-form .input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-inputs-form .input-container.name {
+  width: 100%;
+}
+
+.input-container.cost, .input-container.sku {
+  width: 200px;
+}
+
+.input-container.category {
+  width: 240px;
+}
+
+.inventory-inputs-form input, .inventory-inputs-form select {
+  background-color: white;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 240px;
+}
+
+.btn-container button {
+  margin-left: 24px;
+}
+
+/* Shipping Info Table */
+
+.inventory-table-container {
+  width: 70%;
+  margin: 8px;
+}
+
+.inventory-table thead {
+  background-color: gold;
+}
+
+.inventory-table tbody tr {
+  cursor: pointer;
+}

@@ -10,7 +10,6 @@
 
 .shipping-info-inputs {
   width: 30%;
-  height: 200px;
   margin: 8px;
 }
 
@@ -36,7 +35,6 @@
 }
 
 .shipping-inputs-form input {
-  width: 200px;
   background-color: white;
 }
 
@@ -74,6 +72,6 @@
   background-color: gold;
 }
 
-.shipping-info-table .tracking-number {
+.shipping-info-table tbody tr {
   cursor: pointer;
 }

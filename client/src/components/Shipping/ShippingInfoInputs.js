@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button } from '@chakra-ui/react';
+import { Input, InputLeftElement, InputGroup, Button } from '@chakra-ui/react';
 import { MdSave, MdClear } from 'react-icons/md';
 
 const ShippingInfoInputs = (props) => {
@@ -71,14 +71,22 @@ const ShippingInfoInputs = (props) => {
         </div>
         <div>
           <label>Cost</label>
-          <Input name="cost" value={cost} onChange={(e) => handleChange(e)} />
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              color="gray"
+              children="$"
+            />
+            <Input name="cost" value={cost} onChange={(e) => handleChange(e)} />
+          </InputGroup>
         </div>
         <div className="save-btn-container">
           <Button
             type="submit"
             size="md"
-            colorScheme="blue"
+            colorScheme="teal"
             leftIcon={<MdSave />}
+            isDisabled={trackingNumber === '' || orderId === ''}
           >
             Save
           </Button>

@@ -1,51 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import InventoryTable from './InventoryTable';
+import InventoryInputs from './InventoryInputs';
 
-import "./InventoryPage.css";
+import './Inventory.css';
 
 class InventoryPage extends Component {
   state = {
     inventories: [],
+    name: '',
+    sku: '',
+    category: '',
+    costOfGoods: '',
+  };
+
+  handleChange = (e) => {
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value,
+    });
   };
 
   getInventoryData = async () => {
-    const response = await axios.get('/api/inventory');
-    const { inventories } = response.data;
-    this.setState({ inventories });
-  };
-
-  generateTable = () => {
-    const { inventories } = this.state;
-    return (
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>SKU</TableCell>
-              <TableCell>Product Name</TableCell>
-              <TableCell>Cost</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {inventories.map((row) => {
-              return (
-                <TableRow key={row.sku}>
-                  <TableCell>{row.sku}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>${row.costOfGoods}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
+    try {
+      const response = await axios.get('/api/inventory');
+      const { inventories } = response.data;
+      this.setState({ inventories });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   componentDidMount() {
@@ -55,11 +38,14 @@ class InventoryPage extends Component {
   render() {
     return (
       <div className="inventory-page-wrapper">
-        {this.state.inventories.length > 0 ? (
-          this.generateTable()
-        ) : (
-          <div>Loading</div>
-        )}
+        <InventoryInputs
+          name={this.state.name}
+          sku={this.state.sku}
+          category={this.state.category}
+          costOfGoods={this.state.costOfGoods}
+          handleChange={this.handleChange}
+        />
+        <InventoryTable inventories={this.state.inventories}/>
       </div>
     );
   }
