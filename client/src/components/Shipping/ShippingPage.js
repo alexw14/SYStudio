@@ -54,8 +54,8 @@ class ShippingPage extends Component {
   };
 
   handleSubmit = async (e) => {
-    const { date, orderId, trackingNumber, cost, isAddOrEdit } = this.state;
     e.preventDefault();
+    const { date, orderId, trackingNumber, cost, isAddOrEdit } = this.state;
     const dataToSubmit = {
       date,
       orderId,

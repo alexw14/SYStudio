@@ -12,6 +12,7 @@ class InventoryPage extends Component {
     sku: '',
     category: '',
     costOfGoods: '',
+    errorMessage: '',
   };
 
   handleChange = (e) => {
@@ -19,6 +20,43 @@ class InventoryPage extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  resetInventoryInputs = () => {
+    this.setState({
+      name: '',
+      sku: '',
+      category: '',
+      costOfGoods: '',
+    });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, sku, category, costOfGoods } = this.state;
+    const dataToSubmit = {
+      name,
+      sku,
+      category,
+      costOfGoods: parseFloat(costOfGoods),
+    };
+    const response = await this.postInventoryData(dataToSubmit);
+    if (response.data.success) {
+      this.getInventoryData();
+      this.resetInventoryInputs();
+      this.setState({ errorMessage: '' });
+    } else {
+      this.setState({ errorMessage: response.data.message });
+    }
+  };
+
+  postInventoryData = async (dataToSubmit) => {
+    try {
+      const response = await axios.post('/api/inventory', dataToSubmit);
+      return response;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   getInventoryData = async () => {
@@ -44,8 +82,10 @@ class InventoryPage extends Component {
           category={this.state.category}
           costOfGoods={this.state.costOfGoods}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          resetInventoryInputs={this.resetInventoryInputs}
         />
-        <InventoryTable inventories={this.state.inventories}/>
+        <InventoryTable inventories={this.state.inventories} />
       </div>
     );
   }

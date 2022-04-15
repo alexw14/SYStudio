@@ -21,6 +21,7 @@ const InventoryTable = (props) => {
               <Th>Name</Th>
               <Th>SKU</Th>
               <Th>Cost of Goods</Th>
+              <Th>Category</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -30,6 +31,7 @@ const InventoryTable = (props) => {
                   <Td>{d.name}</Td>
                   <Td>{d.sku}</Td>
                   <Td>${d.costOfGoods}</Td>
+                  <Td>{d.category}</Td>
                 </Tr>
               );
             })}

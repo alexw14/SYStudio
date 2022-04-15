@@ -1,27 +1,43 @@
 import React from 'react';
-import { Input, InputLeftElement, InputGroup, Select, Button } from '@chakra-ui/react';
+import {
+  Input,
+  InputLeftElement,
+  InputGroup,
+  Select,
+  Button,
+} from '@chakra-ui/react';
 import { MdSave, MdClear } from 'react-icons/md';
 
 const InventoryInputs = (props) => {
-  const { name, sku, category, costOfGoods, handleChange } = props;
+  const {
+    name,
+    sku,
+    category,
+    costOfGoods,
+    handleChange,
+    handleSubmit,
+    resetInventoryInputs,
+  } = props;
 
-  const categoryDropDownSelections = {
-    petTapeRoll: 'PET Tape Roll',
-    petTapeSample: 'PET Tape Sample',
-    washiTapeRoll: 'Washi Tape Roll',
-    washiTapeSample: 'Washi Tape Sample',
-    sticker: 'Sticker',
-    stamp: 'Stamp',
-    stationery: 'Stationery',
-    handmade: 'Handmade',
-    postcard: 'Postcard',
-    greetingCard: 'Greeting Card',
-    paper: 'Paper',
-  };
+  const categoryDropDownSelections = [
+    'PET Tape Roll',
+    'PET Tape Sample',
+    'Washi Tape Roll',
+    'Washi Tape Sample',
+    'Sticker',
+    'Stamp',
+    'Stationery',
+    'Handmade',
+    'Postcard',
+    'Greeting Card',
+    'Paper',
+    'Tracing Tape Roll',
+    'Tracing Tape Sample',
+  ];
 
   const generateInventoryInputs = () => {
     return (
-      <form className="inventory-inputs-form">
+      <form className="inventory-inputs-form" onSubmit={(e) => handleSubmit(e)}>
         <div className="input-wrapper input-row-1">
           <div className="input-container name">
             <label>Name</label>
@@ -56,9 +72,11 @@ const InventoryInputs = (props) => {
               value={category}
               onChange={(e) => handleChange(e)}
             >
-              {Object.keys(categoryDropDownSelections).map((key) => {
+              {categoryDropDownSelections.map((cat, i) => {
                 return (
-                  <option value={key}>{categoryDropDownSelections[key]}</option>
+                  <option key={i} value={cat}>
+                    {cat}
+                  </option>
                 );
               })}
             </Select>
@@ -72,7 +90,12 @@ const InventoryInputs = (props) => {
             >
               Save
             </Button>
-            <Button type="button" size="md" leftIcon={<MdClear />}>
+            <Button
+              type="button"
+              size="md"
+              leftIcon={<MdClear />}
+              onClick={() => resetInventoryInputs()}
+            >
               Clear
             </Button>
           </div>

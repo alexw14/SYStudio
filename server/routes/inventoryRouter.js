@@ -7,7 +7,6 @@ router.post('/', async (req, res) => {
   try {
     const newInventory = new Inventory(req.body);
     const foundInventory = await Inventory.findOne({ sku: newInventory.sku });
-
     if (!foundInventory) {
       const savedInventory = await newInventory.save();
       return res.status(200).json({
