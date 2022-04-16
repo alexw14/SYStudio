@@ -7,6 +7,8 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { MdSave, MdClear } from 'react-icons/md';
+import { categoryOptions } from '../../utils/categoryOptions';
+import './Inventory.css';
 
 const InventoryInputs = (props) => {
   const {
@@ -20,22 +22,6 @@ const InventoryInputs = (props) => {
     handleClickAddEditBtn,
     isAddOrEdit,
   } = props;
-
-  const categoryDropDownSelections = [
-    'PET Tape Roll',
-    'PET Tape Sample',
-    'Washi Tape Roll',
-    'Washi Tape Sample',
-    'Sticker',
-    'Stamp',
-    'Stationery',
-    'Handmade',
-    'Postcard',
-    'Greeting Card',
-    'Paper',
-    'Tracing Tape Roll',
-    'Tracing Tape Sample',
-  ];
 
   const generateAddEditButtons = () => {
     return (
@@ -102,7 +88,7 @@ const InventoryInputs = (props) => {
               value={category}
               onChange={(e) => handleChange(e)}
             >
-              {categoryDropDownSelections.map((cat, i) => {
+              {categoryOptions.map((cat, i) => {
                 return (
                   <option key={i} value={cat}>
                     {cat}

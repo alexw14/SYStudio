@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import InventoryTable from './InventoryTable';
 import InventoryInputs from './InventoryInputs';
+import InventoryFilter from './InventoryFilter';
 
 import './Inventory.css';
 
@@ -14,6 +15,7 @@ class InventoryPage extends Component {
     costOfGoods: '',
     errorMessage: '',
     isAddOrEdit: 'add',
+    filter: {},
   };
 
   handleChange = (e) => {
@@ -37,6 +39,10 @@ class InventoryPage extends Component {
       costOfGoods,
       isAddOrEdit: 'edit',
     });
+  };
+
+  handleFilter = (filter) => {
+    this.setState({ filter });
   };
 
   resetInventoryInputs = () => {
@@ -129,8 +135,10 @@ class InventoryPage extends Component {
           resetInventoryInputs={this.resetInventoryInputs}
           handleClickAddEditBtn={this.handleClickAddEditBtn}
         />
+        <InventoryFilter handleFilter={this.handleFilter}/>
         <InventoryTable
           inventories={this.state.inventories}
+          filter={this.state.filter}
           handleTableRowClick={this.handleTableRowClick}
         />
       </div>

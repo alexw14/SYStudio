@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-/* Shipping Info Inputs */
+/* Inventory Inputs */
 
 .inventory-inputs {
   margin: 8px;
@@ -54,14 +54,59 @@
 .btn-container {
   display: flex;
   justify-content: flex-end;
-  width: 240px;
 }
 
 .btn-container button {
   margin-left: 24px;
 }
 
-/* Shipping Info Table */
+.add-edit-btn-container {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: gold;
+  padding: 16px 8px 8px 8px;
+}
+
+.add-edit-btn-container button {
+  width: 50%;
+  margin: 0px 8px;
+}
+
+/* Inventory Filter */
+
+.inventory-filter-container {
+  margin: 8px;
+}
+
+.inventory-filter {
+  background-color: gold;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.inventory-filter input, .inventory-filter select {
+  background-color: white;
+}
+
+.inventory-filter .filter-input {
+  padding: 8px;
+}
+
+.filter-input.name {
+  width: 500px;
+}
+
+.filter-input.sku {
+  width: 200px;
+}
+
+.input-container.category {
+  width: 240px;
+}
+
+/* Inventory Table */
 
 .inventory-table-container {
   margin: 8px;

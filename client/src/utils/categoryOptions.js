@@ -1,0 +1,15 @@
+export const categoryOptions = [
+  'PET Tape Roll',
+  'PET Tape Sample',
+  'Washi Tape Roll',
+  'Washi Tape Sample',
+  'Sticker',
+  'Stamp',
+  'Stationery',
+  'Handmade',
+  'Postcard',
+  'Greeting Card',
+  'Paper',
+  'Tracing Tape Roll',
+  'Tracing Tape Sample',
+];

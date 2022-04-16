@@ -5,7 +5,6 @@ import LandingPage from './components/Landing/LandingPage';
 import Menu from './components/Menu/Menu';
 // import OrderTrackerPage from './components/OrderTracker/OrderTrackerPage';
 import InventoryPage from './components/Inventory/InventoryPage';
-// import NewInventoryPage from './components/Inventory/NewInventoryPage';
 import ShippingPage from './components/Shipping/ShippingPage';
 import './App.css';
 
