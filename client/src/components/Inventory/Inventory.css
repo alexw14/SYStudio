@@ -9,6 +9,13 @@
 
 /* Inventory Inputs */
 
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px;
+}
+
 .inventory-inputs {
   margin: 8px;
 }

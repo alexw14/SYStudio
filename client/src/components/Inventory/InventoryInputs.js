@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Input,
   InputLeftElement,
@@ -22,6 +22,24 @@ const InventoryInputs = (props) => {
     handleClickAddEditBtn,
     isAddOrEdit,
   } = props;
+
+  const [toggleInput, setToggleInput] = useState(false);
+
+  const generateInventoryHeader = () => {
+    return (
+      <div className="inventory-header">
+        <div style={{ fontSize: '24px' }}>Inventory</div>
+        <Button
+          type="button"
+          size="md"
+          colorScheme="teal"
+          onClick={() => setToggleInput(!toggleInput)}
+        >
+          Add New or Edit
+        </Button>
+      </div>
+    );
+  };
 
   const generateAddEditButtons = () => {
     return (
@@ -123,8 +141,11 @@ const InventoryInputs = (props) => {
 
   return (
     <div className="inventory-inputs">
-      {generateAddEditButtons()}
-      {generateInventoryInputs()}
+      <div>{generateInventoryHeader()}</div>
+      <div style={{ display: toggleInput ? 'block' : 'none' }}>
+        {generateAddEditButtons()}
+        {generateInventoryInputs()}
+      </div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
   Th,
   Td,
   TableContainer,
+  TableCaption,
 } from '@chakra-ui/react';
 
 import './Inventory.css';
@@ -34,6 +35,7 @@ const InventoryTable = (props) => {
     return (
       <TableContainer className="inventory-table-container">
         <Table variant="striped" className="inventory-table" size="md">
+          <TableCaption placement="bottom">Displaying {tableData.length} of {data.length} items</TableCaption>
           <Thead>
             <Tr>
               <Th>Name</Th>
