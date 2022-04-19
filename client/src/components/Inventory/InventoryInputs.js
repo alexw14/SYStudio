@@ -21,6 +21,7 @@ const InventoryInputs = (props) => {
     resetInventoryInputs,
     handleClickAddEditBtn,
     isAddOrEdit,
+    errorMessage
   } = props;
 
   const [toggleInput, setToggleInput] = useState(false);
@@ -145,6 +146,7 @@ const InventoryInputs = (props) => {
       <div style={{ display: toggleInput ? 'block' : 'none' }}>
         {generateAddEditButtons()}
         {generateInventoryInputs()}
+        <div className="error-text">{errorMessage}</div>
       </div>
     </div>
   );

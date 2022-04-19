@@ -130,6 +130,7 @@ class InventoryPage extends Component {
           category={this.state.category}
           costOfGoods={this.state.costOfGoods}
           isAddOrEdit={this.state.isAddOrEdit}
+          errorMessage={this.state.errorMessage}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetInventoryInputs={this.resetInventoryInputs}

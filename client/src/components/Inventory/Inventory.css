@@ -79,6 +79,13 @@
   margin: 0px 8px;
 }
 
+.inventory-inputs .error-text {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+}
+
 /* Inventory Filter */
 
 .inventory-filter-container {
