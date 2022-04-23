@@ -34,7 +34,7 @@ const InventoryTable = (props) => {
     const tableData = data.filter(filterFn);
     return (
       <TableContainer className="inventory-table-container">
-        <Table variant="striped" className="inventory-table" size="md">
+        <Table variant="striped" className="inventory-table" size="sm">
           <TableCaption placement="bottom">Displaying {tableData.length} of {data.length} items</TableCaption>
           <Thead>
             <Tr>
