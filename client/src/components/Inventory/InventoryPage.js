@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 import InventoryTable from './InventoryTable';
 import InventoryInputs from './InventoryInputs';
 import InventoryFilter from './InventoryFilter';
+import {
+  getInventoryData,
+  addInventoryData,
+  updateInventoryData,
+} from '../../api/inventoryAPI';
 
 import './Inventory.css';
 
@@ -66,59 +71,36 @@ class InventoryPage extends Component {
       costOfGoods: parseFloat(costOfGoods),
     };
     if (isAddOrEdit === 'add') {
-      const response = await this.postInventoryData(dataToSubmit);
+      const response = await addInventoryData(dataToSubmit);
       if (response.data.success) {
-        this.successPostRequest();
+        this.handleSuccessSubmit();
       } else {
         this.setState({ errorMessage: response.data.message });
       }
     } else if (isAddOrEdit === 'edit') {
-      const response = await this.updateInventoryData(dataToSubmit);
+      const response = await updateInventoryData(dataToSubmit);
       if (response.data.success) {
-        this.successPostRequest();
+        this.handleSuccessSubmit();
       } else {
         this.setState({ errorMessage: response.data.message });
       }
     }
   };
 
-  successPostRequest = () => {
-    this.getInventoryData();
+  handleSuccessSubmit = () => {
+    this.handleGetInventoryData();
     this.resetInventoryInputs();
     this.setState({ errorMessage: '' });
   };
 
-  updateInventoryData = async (dataToSubmit) => {
-    try {
-      const url = `/api/inventories/edit/${dataToSubmit.sku}`;
-      let response = await axios.post(url, dataToSubmit);
-      return response;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  postInventoryData = async (dataToSubmit) => {
-    try {
-      const response = await axios.post('/api/inventories', dataToSubmit);
-      return response;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  getInventoryData = async () => {
-    try {
-      const response = await axios.get('/api/inventories');
-      const { inventories } = response.data;
-      this.setState({ inventories });
-    } catch (err) {
-      console.error(err);
-    }
+  handleGetInventoryData = async () => {
+    const response = await getInventoryData();
+    const { inventories } = response.data;
+    this.setState({ inventories });
   };
 
   componentDidMount() {
-    this.getInventoryData();
+    this.handleGetInventoryData();
   }
 
   render() {
@@ -136,7 +118,7 @@ class InventoryPage extends Component {
           resetInventoryInputs={this.resetInventoryInputs}
           handleClickAddEditBtn={this.handleClickAddEditBtn}
         />
-        <InventoryFilter handleFilter={this.handleFilter}/>
+        <InventoryFilter handleFilter={this.handleFilter} />
         <InventoryTable
           inventories={this.state.inventories}
           filter={this.state.filter}

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 import ShippingInfoInputs from './ShippingInfoInputs';
 import ShippingInfoTable from './ShippingInfoTable';
+import {
+  getShippingData,
+  addShippingData,
+  updateShippingData,
+} from '../../api/shippingAPI';
 import './Shipping.css';
 
 class ShippingPage extends Component {
@@ -63,57 +68,36 @@ class ShippingPage extends Component {
       cost: parseFloat(cost),
     };
     if (isAddOrEdit === 'add') {
-      const response = await this.postShippingData(dataToSubmit);
+      const response = await addShippingData(dataToSubmit);
       if (response.data.success) {
-        this.getShippingData();
-        this.resetShippingInfoInputs();
-        this.setState({ errorMessage: '' });
+        this.handleSuccessSubmit();
       } else {
         this.setState({ errorMessage: response.data.message });
       }
     } else if (isAddOrEdit === 'edit') {
-      const response = await this.updateShippingData(dataToSubmit);
+      const response = await updateShippingData(dataToSubmit);
       if (response.data.success) {
-        this.getShippingData();
-        this.resetShippingInfoInputs();
-        this.setState({ errorMessage: '' });
+        this.handleSuccessSubmit();
       } else {
         this.setState({ errorMessage: response.data.message });
       }
     }
   };
 
-  updateShippingData = async (dataToSubmit) => {
-    try {
-      const url = `/api/shipping/edit/${dataToSubmit.orderId}`;
-      let response = await axios.post(url, dataToSubmit);
-      return response;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  handleSuccessSubmit = () => {
+    this.handleGetShippingData();
+    this.resetShippingInfoInputs();
+    this.setState({ errorMessage: '' });
+  } 
 
-  postShippingData = async (dataToSubmit) => {
-    try {
-      let response = await axios.post('/api/shipping', dataToSubmit);
-      return response;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  getShippingData = async () => {
-    try {
-      const response = await axios.get('/api/shipping');
-      const { shippingData } = response.data;
-      this.setState({ shippingData });
-    } catch (err) {
-      console.error(err);
-    }
+  handleGetShippingData = async () => {
+    const response = await getShippingData();
+    const { shippingData } = response.data;
+    this.setState({ shippingData });
   };
 
   componentDidMount() {
-    this.getShippingData();
+    this.handleGetShippingData();
   }
 
   render() {
