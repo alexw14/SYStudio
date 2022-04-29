@@ -31,12 +31,10 @@ const register = async (req, res) => {
     });
     const savedUser = await newUser.save();
     if (savedUser) {
+      const token = generateToken(savedUser);
       return res.status(200).json({
         success: true,
-        user: {
-          name: savedUser.name,
-          email: savedUser.email,
-        },
+        token,
       });
     }
   } catch (err) {
@@ -64,13 +62,11 @@ const login = async (req, res) => {
       });
     }
 
-    const token = generateToken(foundUser._id);
+    const token = generateToken(foundUser);
     return res.status(200).json({
       success: true,
       user: {
         token,
-        name: foundUser.name,
-        email: foundUser.email,
       },
     });
   } catch (err) {
@@ -79,8 +75,8 @@ const login = async (req, res) => {
 };
 
 // Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, SECRET, {
+const generateToken = (user) => {
+  return jwt.sign({ user }, SECRET, {
     expiresIn: '1d',
   });
 };

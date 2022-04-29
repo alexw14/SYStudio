@@ -90,7 +90,7 @@ class InventoryPage extends Component {
 
   updateInventoryData = async (dataToSubmit) => {
     try {
-      const url = `/api/inventory/edit/${dataToSubmit.sku}`;
+      const url = `/api/inventories/edit/${dataToSubmit.sku}`;
       let response = await axios.post(url, dataToSubmit);
       return response;
     } catch (err) {
@@ -100,7 +100,7 @@ class InventoryPage extends Component {
 
   postInventoryData = async (dataToSubmit) => {
     try {
-      const response = await axios.post('/api/inventory', dataToSubmit);
+      const response = await axios.post('/api/inventories', dataToSubmit);
       return response;
     } catch (err) {
       console.error(err);
@@ -109,7 +109,7 @@ class InventoryPage extends Component {
 
   getInventoryData = async () => {
     try {
-      const response = await axios.get('/api/inventory');
+      const response = await axios.get('/api/inventories');
       const { inventories } = response.data;
       this.setState({ inventories });
     } catch (err) {

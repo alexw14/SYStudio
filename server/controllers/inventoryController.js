@@ -1,9 +1,25 @@
-const express = require('express');
-const router = express.Router();
-
 const Inventory = require('../models/Inventory');
 
-router.post('/', async (req, res) => {
+const getInventory = async (req, res) => {
+  try {
+    const foundInventories = await Inventory.find({});
+    if (foundInventories) {
+      return res.status(200).json({
+        success: true,
+        inventories: foundInventories,
+      });
+    } else {
+      return res.json({
+        success: false,
+        message: 'There are no inventories in the database.',
+      });
+    }
+  } catch (err) {
+    return res.json({ success: false, error: err });
+  }
+};
+
+const addInventory = async (req, res) => {
   try {
     const newInventory = new Inventory(req.body);
     const foundInventory = await Inventory.findOne({ sku: newInventory.sku });
@@ -22,9 +38,9 @@ router.post('/', async (req, res) => {
   } catch (err) {
     return res.json({ success: false, error: err });
   }
-});
+};
 
-router.post('/edit/:sku', async (req, res) => {
+const editInventory = async (req, res) => {
   try {
     const { name, sku, costOfGoods, category } = req.body;
     const foundInventory = await Inventory.findOne({
@@ -49,25 +65,10 @@ router.post('/edit/:sku', async (req, res) => {
   } catch (err) {
     return res.json({ success: false, error: err });
   }
-});
+};
 
-router.get('/', async (req, res) => {
-  try {
-    const foundInventories = await Inventory.find({});
-    if (foundInventories) {
-      return res.status(200).json({
-        success: true,
-        inventories: foundInventories,
-      });
-    } else {
-      return res.json({
-        success: false,
-        message: 'There are no inventories in the database.',
-      });
-    }
-  } catch (err) {
-    return res.json({ success: false, error: err });
-  }
-});
-
-module.exports = router;
+module.exports = {
+  getInventory,
+  addInventory,
+  editInventory,
+};
