@@ -10,9 +10,17 @@ import {
 } from '@chakra-ui/react';
 
 const ShippingInfoTable = (props) => {
-  const { shippingData, handleClick } = props;
+  const { shippingData, selectedMonth, handleClick } = props;
+
+  const filterFn = (item) => {
+    if (item.date.split('T')[0].includes(selectedMonth) || selectedMonth === '') {
+      return true;
+    }
+    return false;
+  }
 
   const generateTable = (data) => {
+    const tableData = data.filter(filterFn);
     return (
       <TableContainer className="shipping-info-table-container">
         <Table variant="striped" className="shipping-info-table" size="md">
@@ -25,7 +33,7 @@ const ShippingInfoTable = (props) => {
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((d) => {
+            {tableData.map((d) => {
               return (
                 <Tr key={d.orderId} onClick={() => handleClick(d)}>
                   <Td>{d.date ? d.date.split('T')[0] : 'N/A'}</Td>

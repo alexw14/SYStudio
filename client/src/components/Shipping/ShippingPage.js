@@ -18,6 +18,7 @@ class ShippingPage extends Component {
     cost: '',
     errorMessage: '',
     isAddOrEdit: 'add',
+    selectedMonth: '',
   };
 
   handleChange = (e) => {
@@ -110,6 +111,7 @@ class ShippingPage extends Component {
           cost={this.state.cost}
           errorMessage={this.state.errorMessage}
           isAddOrEdit={this.state.isAddOrEdit}
+          selectedMonth={this.state.selectedMonth}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetShippingInfoInputs={this.resetShippingInfoInputs}
@@ -117,6 +119,7 @@ class ShippingPage extends Component {
         />
         <ShippingInfoTable
           shippingData={this.state.shippingData}
+          selectedMonth={this.state.selectedMonth}
           handleClick={this.handleTableRowClick}
         />
       </div>

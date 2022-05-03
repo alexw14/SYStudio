@@ -1,5 +1,11 @@
 import React from 'react';
-import { Input, InputLeftElement, InputGroup, Button } from '@chakra-ui/react';
+import {
+  Input,
+  InputLeftElement,
+  InputGroup,
+  Button,
+  Select,
+} from '@chakra-ui/react';
 import { MdSave, MdClear } from 'react-icons/md';
 
 const ShippingInfoInputs = (props) => {
@@ -10,11 +16,34 @@ const ShippingInfoInputs = (props) => {
     cost,
     errorMessage,
     isAddOrEdit,
+    selectedMonth,
     handleChange,
     handleSubmit,
     resetShippingInfoInputs,
     handleClickAddEditBtn,
   } = props;
+
+  const generateSelectedMonthDropDown = () => {
+    const selectedMonthOptions = ['2022-04', '2022-05'];
+    return (
+      <div className="select-month-dropdown">
+        <Select
+          placeholder="Select month"
+          name="selectedMonth"
+          value={selectedMonth}
+          onChange={(e) => handleChange(e)}
+        >
+          {selectedMonthOptions.map((month, i) => {
+            return (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            );
+          })}
+        </Select>
+      </div>
+    );
+  };
 
   const generateAddEditButtons = () => {
     return (
@@ -72,11 +101,7 @@ const ShippingInfoInputs = (props) => {
         <div>
           <label>Cost</label>
           <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              color="gray"
-              children="$"
-            />
+            <InputLeftElement pointerEvents="none" color="gray" children="$" />
             <Input name="cost" value={cost} onChange={(e) => handleChange(e)} />
           </InputGroup>
         </div>
@@ -105,6 +130,7 @@ const ShippingInfoInputs = (props) => {
 
   return (
     <div className="shipping-info-inputs">
+      {generateSelectedMonthDropDown()}
       {generateAddEditButtons()}
       {generateShippingInputs()}
       <div className="error-text">{errorMessage}</div>
