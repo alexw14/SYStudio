@@ -7,23 +7,32 @@ import {
   Th,
   Td,
   TableContainer,
+  TableCaption,
 } from '@chakra-ui/react';
 
 const ShippingInfoTable = (props) => {
-  const { shippingData, selectedMonth, handleClick } = props;
+  const { shippingData, selectedMonthAndYear, handleClick } = props;
 
   const filterFn = (item) => {
-    if (item.date.split('T')[0].includes(selectedMonth) || selectedMonth === '') {
-      return true;
-    }
-    return false;
-  }
+    return (
+      item.date.split('T')[0].includes(selectedMonthAndYear) ||
+      selectedMonthAndYear === ''
+    );
+  };
+
+  const calculateTotalCost = (data) => {
+    return data.reduce((prev, curr) => prev + curr.cost, 0);
+  };
 
   const generateTable = (data) => {
     const tableData = data.filter(filterFn);
+    const totalCost = calculateTotalCost(tableData);
     return (
       <TableContainer className="shipping-info-table-container">
         <Table variant="striped" className="shipping-info-table" size="md">
+          <TableCaption placement="top" className="total">
+            Total shipping cost: ${totalCost}
+          </TableCaption>
           <Thead>
             <Tr>
               <Th>Shipping Date</Th>
@@ -49,9 +58,7 @@ const ShippingInfoTable = (props) => {
     );
   };
 
-  return (
-    <React.Fragment>{generateTable(shippingData)}</React.Fragment>
-  );
+  return <React.Fragment>{generateTable(shippingData)}</React.Fragment>;
 };
 
 export default ShippingInfoTable;

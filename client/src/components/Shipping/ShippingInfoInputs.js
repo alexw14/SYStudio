@@ -16,27 +16,31 @@ const ShippingInfoInputs = (props) => {
     cost,
     errorMessage,
     isAddOrEdit,
-    selectedMonth,
+    selectedMonthAndYear,
     handleChange,
     handleSubmit,
     resetShippingInfoInputs,
     handleClickAddEditBtn,
   } = props;
 
-  const generateSelectedMonthDropDown = () => {
-    const selectedMonthOptions = ['2022-04', '2022-05'];
+  const generateSelectedMonthAndYearDropDown = () => {
+    const selectedMonthAndYearOptions = [
+      'May 2022,2022-05',
+      'April 2022,2022-04',
+    ];
     return (
       <div className="select-month-dropdown">
         <Select
-          placeholder="Select month"
-          name="selectedMonth"
-          value={selectedMonth}
+          placeholder="Select month and year"
+          name="selectedMonthAndYear"
+          value={selectedMonthAndYear}
           onChange={(e) => handleChange(e)}
         >
-          {selectedMonthOptions.map((month, i) => {
+          {selectedMonthAndYearOptions.map((item) => {
+            const opt = item.split(',');
             return (
-              <option key={month} value={month}>
-                {month}
+              <option key={opt[1]} value={opt[1]}>
+                {opt[0]}
               </option>
             );
           })}
@@ -130,7 +134,7 @@ const ShippingInfoInputs = (props) => {
 
   return (
     <div className="shipping-info-inputs">
-      {generateSelectedMonthDropDown()}
+      {generateSelectedMonthAndYearDropDown()}
       {generateAddEditButtons()}
       {generateShippingInputs()}
       <div className="error-text">{errorMessage}</div>

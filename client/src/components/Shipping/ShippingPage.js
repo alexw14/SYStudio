@@ -18,7 +18,7 @@ class ShippingPage extends Component {
     cost: '',
     errorMessage: '',
     isAddOrEdit: 'add',
-    selectedMonth: '',
+    selectedMonthAndYear: new Date().toISOString().split('T')[0].substring(0, 7),
   };
 
   handleChange = (e) => {
@@ -89,7 +89,7 @@ class ShippingPage extends Component {
     this.handleGetShippingData();
     this.resetShippingInfoInputs();
     this.setState({ errorMessage: '' });
-  } 
+  };
 
   handleGetShippingData = async () => {
     const response = await getShippingData();
@@ -111,7 +111,7 @@ class ShippingPage extends Component {
           cost={this.state.cost}
           errorMessage={this.state.errorMessage}
           isAddOrEdit={this.state.isAddOrEdit}
-          selectedMonth={this.state.selectedMonth}
+          selectedMonthAndYear={this.state.selectedMonthAndYear}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           resetShippingInfoInputs={this.resetShippingInfoInputs}
@@ -119,7 +119,7 @@ class ShippingPage extends Component {
         />
         <ShippingInfoTable
           shippingData={this.state.shippingData}
-          selectedMonth={this.state.selectedMonth}
+          selectedMonthAndYear={this.state.selectedMonthAndYear}
           handleClick={this.handleTableRowClick}
         />
       </div>

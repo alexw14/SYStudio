@@ -61,6 +61,17 @@
   margin-top: 8px;
 }
 
+.shipping-info-inputs .select-month-dropdown {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: gold;
+}
+
+.shipping-info-inputs .select-month-dropdown select{ 
+  background-color: white;
+  text-align: center;
+}
+
 /* Shipping Info Table */
 
 .shipping-info-table-container {
@@ -74,4 +85,8 @@
 
 .shipping-info-table tbody tr {
   cursor: pointer;
+}
+
+.shipping-info-table .total {
+  text-align: right;
 }
