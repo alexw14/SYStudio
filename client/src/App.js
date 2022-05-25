@@ -7,19 +7,46 @@ import Menu from './components/Menu/Menu';
 // import OrderTrackerPage from './components/OrderTracker/OrderTrackerPage';
 import InventoryPage from './components/Inventory/InventoryPage';
 import ShippingPage from './components/Shipping/ShippingPage';
+
+import { removeToken, parseJwt } from './utils/tokenService';
 import './App.css';
 
 class App extends Component {
+  state = {
+    user: null,
+  };
+
+  handleLogin = (token) => {
+    const payload = parseJwt(token);
+    this.setState({ user: payload.user });
+  };
+
+  handleLogout = (user) => {
+    removeToken();
+    this.setState({ user: null });
+  };
+
   render() {
     return (
       <BrowserRouter>
         <Menu />
         <React.Fragment>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path='/login' component={LoginPage} />
-          {/* <Route exact path="/ordertracker" component={OrderTrackerPage} /> */}
-          <Route exact path="/inventory" component={InventoryPage} />
-          <Route exact path="/shipping" component={ShippingPage} />
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route
+            exact
+            path="/login"
+            render={(props) => (
+              <LoginPage {...props} handleLogin={this.handleLogin} />
+            )}
+          />
+          <Route exact path="/inventory">
+            <InventoryPage />
+          </Route>
+          <Route exact path="/shipping">
+            <ShippingPage />
+          </Route>
         </React.Fragment>
       </BrowserRouter>
     );

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
+import { loginUser } from '../../api/userAPI';
 import LoginForm from './LoginForm';
+import { setToken } from '../../utils/tokenService';
+
+import "./Login.css";
 
 class LoginPage extends Component {
   state = {
@@ -23,25 +26,21 @@ class LoginPage extends Component {
       email,
       password,
     };
-    const response = await this.postLogin(dataToSubmit);
-  };
-
-  postLogin = async (dataToSubmit) => {
-    try {
-      const response = await axios.post('/api/users/login', dataToSubmit);
-      return response;
-    } catch (err) {
-      console.error(err);
-    }
+    const response = await loginUser(dataToSubmit);
+    const { user } = response.data;
+    setToken(user.token);
+    this.props.handleLogin(user.token);
+    this.props.history.push("/");
   };
 
   render() {
     return (
-      <div>
+      <div className="login-page-wrapper">
         <LoginForm
           email={this.state.email}
           password={this.state.password}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
       </div>
     );

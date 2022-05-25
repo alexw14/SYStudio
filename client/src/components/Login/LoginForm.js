@@ -33,7 +33,7 @@ const LoginForm = (props) => {
       </form>
     );
   };
-  return <div>{generateLoginForm()}</div>;
+  return <div className="login-form-container">{generateLoginForm()}</div>;
 };
 
 export default LoginForm;
