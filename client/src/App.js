@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import LandingPage from './components/Landing/LandingPage';
 import LoginPage from './components/Login/LoginPage';
@@ -8,7 +8,7 @@ import Menu from './components/Menu/Menu';
 import InventoryPage from './components/Inventory/InventoryPage';
 import ShippingPage from './components/Shipping/ShippingPage';
 
-import { removeToken, parseJwt } from './utils/tokenService';
+import { getToken, removeToken, parseJwt } from './utils/tokenService';
 import './App.css';
 
 class App extends Component {
@@ -21,34 +21,43 @@ class App extends Component {
     this.setState({ user: payload.user });
   };
 
-  handleLogout = (user) => {
+  handleLogout = () => {
     removeToken();
     this.setState({ user: null });
   };
 
+  componentDidMount() {
+    const token = getToken();
+    if (token) {
+      this.handleLogin(token);
+    }
+  }
+
   render() {
     return (
-      <BrowserRouter>
-        <Menu />
-        <React.Fragment>
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-          <Route
-            exact
-            path="/login"
-            render={(props) => (
-              <LoginPage {...props} handleLogin={this.handleLogin} />
-            )}
-          />
-          <Route exact path="/inventory">
-            <InventoryPage />
-          </Route>
-          <Route exact path="/shipping">
-            <ShippingPage />
-          </Route>
-        </React.Fragment>
-      </BrowserRouter>
+      <div className="app">
+        <BrowserRouter>
+          <Menu user={this.state.user} handleLogout={this.handleLogout} />
+          <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route
+              exact
+              path="/login"
+              render={(props) => (
+                <LoginPage {...props} handleLogin={this.handleLogin} />
+              )}
+            />
+            <Route exact path="/inventory">
+              {this.state.user ? <InventoryPage /> : <Redirect to="/login" />}
+            </Route>
+            <Route exact path="/shipping">
+              {this.state.user ? <ShippingPage /> : <Redirect to="/login" />}
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
     );
   }
 }
