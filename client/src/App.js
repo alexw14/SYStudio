@@ -8,7 +8,7 @@ import Menu from './components/Menu/Menu';
 import InventoryPage from './components/Inventory/InventoryPage';
 import ShippingPage from './components/Shipping/ShippingPage';
 
-import { getToken, removeToken, parseJwt } from './utils/tokenService';
+import { getUserFromToken, removeToken } from './utils/tokenService';
 import './App.css';
 
 class App extends Component {
@@ -16,9 +16,11 @@ class App extends Component {
     user: null,
   };
 
-  handleLogin = (token) => {
-    const payload = parseJwt(token);
-    this.setState({ user: payload.user });
+  handleLogin = () => {
+    const user = getUserFromToken();
+    if (user) {
+      this.setState({ user });
+    }
   };
 
   handleLogout = () => {
@@ -27,10 +29,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const token = getToken();
-    if (token) {
-      this.handleLogin(token);
-    }
+    this.handleLogin();
   }
 
   render() {
@@ -45,15 +44,23 @@ class App extends Component {
             <Route
               exact
               path="/login"
-              render={(props) => (
-                <LoginPage {...props} handleLogin={this.handleLogin} />
-              )}
+              render={(props) =>
+                !getUserFromToken() ? (
+                  <LoginPage {...props} handleLogin={this.handleLogin} />
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
             />
             <Route exact path="/inventory">
-              {this.state.user ? <InventoryPage /> : <Redirect to="/login" />}
+              {getUserFromToken() ? (
+                <InventoryPage />
+              ) : (
+                <Redirect to="/login" />
+              )}
             </Route>
             <Route exact path="/shipping">
-              {this.state.user ? <ShippingPage /> : <Redirect to="/login" />}
+              {getUserFromToken() ? <ShippingPage /> : <Redirect to="/login" />}
             </Route>
           </Switch>
         </BrowserRouter>

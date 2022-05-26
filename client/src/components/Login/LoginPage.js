@@ -29,7 +29,7 @@ class LoginPage extends Component {
     const response = await loginUser(dataToSubmit);
     const { user } = response.data;
     setToken(user.token);
-    this.props.handleLogin(user.token);
+    this.props.handleLogin();
     this.props.history.push("/");
   };
 
